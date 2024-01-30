@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Sistema de estacionamento</title>
+	<link rel="stylesheet" type ="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+	<script th:src="@{/webjars/jquery/3.7.0/jquery.js}"></script>
+</head>
+<body>
+<input id ="user_id" name="user_id" type="hidden" th:value="${user_id}"/>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" th:fragment="header">
+	<div class="container-fluid">
+		<a class="navbar-brand" th:href="@{'/' + ${user_id}}">Sistema de estacionamento</a>
+		<a class="btn btn-outline-light" th:href="@{'/0'}">Logout</a>
+	</div>
+</nav>
+<br />
+<br />
+<br />
+<div class="container">
+	<div class="row col-md-8 offset-md-2">
+		<div class="card">
+			<div th:if="${param.success}">
+				<div class="alert alert-info">Você foi registrado com sucesso</div>
+			</div>
+			<div class="card-header">
+				<h2 class="text-center">Edição carro</h2>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/car/save}" method="post" role="form" th:object="${car}">
+					<input type="hidden" th:field="*{id}">
+					<input type="hidden" th:field="*{user_id}">
+
+					<div class="form-group mb-3">
+						<label class="form-label">Placa</label>
+						<input class="form-control"
+							   id="placa"
+							   name="placa"
+							   th:field="*{plate}"
+							   type="text"
+						/>
+						<p th:errors="*{plate}" class="text-danger"
+						   th:if="${#fields.hasErrors('plate')}">
+						</p>
+					</div>
+					<div class="form-group mb-3">
+						<label class="form-label">Marca</label>
+						<input class="form-control"
+							   id="marca"
+							   name="marca"
+							   th:field="*{brand}"
+							   type="text"
+						/>
+						<p th:errors="*{brand}" class="text-danger"
+						   th:if="${#fields.hasErrors('brand')}">
+						</p>
+					</div>
+					<div class="form-group mb-3">
+						<label class="form-label">Modelo</label>
+						<input class="form-control"
+							   id="modelo"
+							   name="modelo"
+							   th:field="*{model}"
+							   type="text"
+						/>
+						<p th:errors="*{model}" class="text-danger"
+						   th:if="${#fields.hasErrors('model')}">
+						</p>
+					</div>
+					<div class="form-group mb-3">
+						<label class="form-label">Cor</label>
+						<input class="form-control"
+							   id="cor"
+							   name="cor"
+							   th:field="*{color}"
+							   type="text"
+						/>
+						<p th:errors="*{color}" class="text-danger"
+						   th:if="${#fields.hasErrors('color')}">
+						</p>
+					</div>
+					<div class="form-group mb-3">
+						<label class="form-label">Ano</label>
+						<input class="form-control"
+							   id="ano"
+							   name="ano"
+							   th:field="*{year}"
+							   type="number"
+						/>
+						<p th:errors="*{year}" class="text-danger"
+						   th:if="${#fields.hasErrors('year')}">
+						</p>
+					</div>
+					<div class="form-group mb-3">
+						<button class="btn btn-primary " type="submit">Salvar</button>
+						<a th:href="@{'/car/' + ${user_id}}" class="btn btn-danger" role="button" >Cancelar</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

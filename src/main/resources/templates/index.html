@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Sistema de estacionamento</title>
+	<link rel="stylesheet" type ="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" type ="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css}"/>
+	<script th:src="@{/webjars/jquery/3.7.0/jquery.js}"></script>
+</head>
+<body>
+	<input id ="user_id" name="user_id" type="hidden" th:value="${user_id}"/>
+	<input id ="purchase_id" name="purchase_id" type="hidden" th:value="${purchase_id}"/>
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<div class="container-fluid">
+				<a class="navbar-brand" th:href="@{'/' + ${user_id}}">Sistema de estacionamento</a>
+				<a class="btn btn-outline-light" th:href="@{'/0'}">Logout</a>
+			</div>
+		</nav>
+		<br />
+		<br />
+		<br />
+		<!--Main Navigation-->
+		<header>
+			<!-- Sidebar -->
+			<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" th:fragment="header">
+				<div class="position-sticky">
+
+					<div class="list-group list-group-flush mx-3 mt-4">
+						<a th:href="@{'/user/' + ${user_id}}" class="list-group-item list-group-item-primary">
+							<i class="bi bi-person-circle m-2"></i><span>Perfil</span>
+						</a>
+						<br/>
+						<a th:href="@{'/car/' + ${user_id}}" class="list-group-item list-group-item-action list-group-item-primary">
+							<i class="bi bi-car-front-fill m-2"></i><span>Carros</span>
+						</a>
+						<br/>
+						<a th:href="@{'/purchase/' + ${user_id}}" class="list-group-item list-group-item-primary">
+							<i class="bi bi-receipt-cutoff m-2"></i><span>Recibos</span>
+						</a>
+						<br/>
+					</div>
+				</div>
+			</nav>
+			<!-- Sidebar -->
+		</header>
+	</div>
+
+	<div class="container">
+		<div th:if="${message}" class="alert alert-danger">
+			[[${message}]]
+		</div>
+
+		<div class="card-body">
+			<div class="relogio center-div">
+				<div>
+					<span id="horas">00</span>
+					<span class="tempo">Horas</span>
+				</div>
+
+				<div>
+					<span id="minutos">00</span>
+					<span class="tempo">Minutos</span>
+				</div>
+
+				<div>
+					<span id="segundos">00</span>
+					<span class="tempo">Segundos</span>
+				</div>
+			</div>
+
+			<div class="form-group" id = "buttonEstacionar">
+				<div class="row">
+					<div class="col m-3">
+						<a th:if="${purchase_id == null}" th:href="@{'/purchase/new/' + ${user_id}}" class="btn btn-secondary btn-lg btn-block" role="button" >Estacionar</a>
+						<a th:if="${purchase_id != null}" th:href="@{'/purchase/edit/' + ${purchase_id}}" class="btn btn-secondary btn-lg btn-block" role="button" >Encerrar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<style>
+	body {
+		background-color: #fbfbfb;
+	}
+	@media (min-width: 991.98px) {
+		main {
+			padding-left: 240px;
+		}
+	}
+
+	/* Sidebar */
+	.sidebar {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		padding: 58px 0 0; /* Height of navbar */
+		box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+		width: 240px;
+		z-index: 600;
+	}
+
+	@media (max-width: 991.98px) {
+		.sidebar {
+			width: 100%;
+		}
+	}
+	.sidebar .active {
+		border-radius: 5px;
+		box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+	}
+
+	.sidebar-sticky {
+		position: relative;
+		top: 0;
+		height: calc(100vh - 48px);
+		padding-top: 0.5rem;
+		overflow-x: hidden;
+		overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+	}
+
+	.relogio {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		height: 200px;
+		width: 550px;
+		background: transparent;
+		border-radius: 3px;
+		box-shadow: 0px 8px 10px rgb(0, 0, 0, 0.5);
+	}
+
+	.relogio div {
+		height: 170px;
+		width: 150px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		color: #fff;
+		background: rgba(5, 5, 5, 0.9);
+		box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+		border-radius: 7px;
+		letter-spacing: 3px;
+	}
+
+	.relogio span {
+		font-weight: bolder;
+		font-size: 60px;
+	}
+
+	.relogio span.tempo {
+		font-size: 10px;
+	}
+
+	.center-div
+	{
+		margin: 0 auto;
+		max-width: 100%;
+		height: auto;
+		background-color: #ccc;
+		border-radius: 3px;
+	}
+
+	#buttonEstacionar{
+		text-align:center;
+		margin:30px;
+	}
+</style>
+<script  type="text/javascript">
+	window.onload = function() {
+		const horas = document.getElementById("horas");
+		const minutos = document.getElementById("minutos");
+		const segundos = document.getElementById("segundos");
+
+		const relogio = setInterval(function time() {
+			let dateToday = new Date();
+			let hr = dateToday.getHours();
+			let min = dateToday.getMinutes();
+			let sec = dateToday.getSeconds();
+
+			if (hr < 10) hr = "0" + hr;
+
+			if (min < 10) min = "0" + min;
+
+			if (sec < 10) sec = "0" + sec;
+
+			horas.textContent = hr;
+			minutos.textContent = min;
+			segundos.textContent = sec;
+		});
+	};
+</script>

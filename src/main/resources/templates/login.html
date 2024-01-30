@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Sistema de estacionamento</title>
+		<link rel="stylesheet" type ="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+		<script th:src="@{/webjars/jquery/3.7.0/jquery.js}"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" th:fragment="header">
+			<div class="container-fluid">
+				<a class="navbar-brand" th:href="@{/}">Sistema de estacionamento</a>
+			</div>
+		</nav>
+		<br />
+		<br />
+		<br />
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div th:if="${param.error}">
+						<div class="alert alert-danger">Email ou senha inválidos.</div>
+					</div>
+					<div th:if="${param.logout}">
+						<div class="alert alert-success">Você foi desconectado.</div>
+					</div>
+					<div class="card">
+						<div class="card-header">
+							<h3 class="text-center">Login</h3>
+						</div>
+						<div class="card-body">
+							<form method="post" th:action="@{/login}" class="form-horizontal" role="form" th:object="${user}">
+								<div class="mb-3">
+									<label for="username" class="control-label">Email *</label>
+									<input type="text" id="username" name="username" th:field="*{email}" class="form-control"/>
+								</div>
+								<div class="mb-3">
+									<label for="password" class="control-label">Senha *</label>
+									<input type="password" id="password" name="password" th:field="*{password}" class="form-control"/>
+								</div>
+								<div class="mb-3">
+									<button type="submit" class="btn btn-primary">Login</button>
+									<span> <a th:href="@{/user/new}"> Registre-se</a> </span>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

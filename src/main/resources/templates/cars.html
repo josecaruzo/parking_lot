@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Sistema de estacionamento</title>
+	<link rel="stylesheet" type ="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" type ="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css}"/>
+	<script th:src="@{/webjars/jquery/3.7.0/jquery.js}"></script>
+</head>
+<body>
+	<input id ="user_id" name="user_id" type="hidden" th:value="${user_id}"/>
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<div class="container-fluid">
+				<a class="navbar-brand" th:href="@{'/' + ${user_id}}">Sistema de estacionamento</a>
+				<a class="btn btn-outline-light" th:href="@{'/0'}">Logout</a>
+			</div>
+		</nav>
+		<br />
+		<br />
+		<br />
+	</div>
+
+	<!--Main Navigation-->
+	<div class="container-fluid">
+		<header>
+			<!-- Sidebar -->
+			<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" th:fragment="header">
+				<div class="position-sticky">
+
+					<div class="list-group list-group-flush mx-3 mt-4">
+						<a th:href="@{'/user/' + ${user_id}}" class="list-group-item list-group-item-primary">
+							<i class="bi bi-person-circle m-2"></i><span>Perfil</span>
+						</a>
+						<br/>
+						<a th:href="@{'/car/' + ${user_id}}" class="list-group-item list-group-item-action list-group-item-primary">
+							<i class="bi bi-car-front-fill m-2"></i><span>Carros</span>
+						</a>
+						<br/>
+						<a th:href="@{'/purchase/' + ${user_id}}" class="list-group-item list-group-item-primary">
+							<i class="bi bi-receipt-cutoff m-2"></i><span>Recibos</span>
+						</a>
+						<br/>
+					</div>
+				</div>
+			</nav>
+			<!-- Sidebar -->
+		</header>
+
+		<div class="container-fluid" id="mainPage">
+			<div class="text-center">
+				<h1>Carros</h1>
+			</div>
+			<br/>
+			<div class="text-left mb-3 pe-auto">
+				<a class="btn btn-secondary" th:href="@{'/car/new/' + ${user_id}}"><i class="bi bi-plus-circle m-2"></i>Adicionar carro</a>
+			</div>
+
+			<div th:if="${message}" class="alert alert-success">
+				[[${message}]]
+			</div>
+
+			<div>
+				<table class="table table-bordered">
+					<thead class="table-dark">
+					<tr class="text-center">
+						<th>Placa</th>
+						<th>Marca</th>
+						<th>Modelo</th>
+						<th>Cor</th>
+						<th>Ano</th>
+						<th>Editar</th>
+						<th>Deletar</th>
+					</tr>
+					</thead>
+					<tbody>
+					<th:block th:each="car : ${carList}">
+						<tr>
+							<td class="d-none">[[${car.id}]]</td>
+							<td>[[${car.plate}]]</td>
+							<td>[[${car.brand}]]</td>
+							<td>[[${car.model}]]</td>
+							<td>[[${car.color}]]</td>
+							<td>[[${car.year}]]</td>
+							<td class="text-center"><a class="h5 link-primary" th:href="@{'/car/edit/' + ${car.id}}"><i class="bi bi-pencil-square pe-auto"></i></a></td>
+							<td class="text-center"><a class="h5 link-primary" th:href="@{'/car/delete/' + ${car.id}}"><i class="bi bi-trash pe-auto"></i></a></td>
+						</tr>
+					</th:block>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
+<style>
+	body {
+		background-color: #fbfbfb;
+	}
+
+	/* Sidebar */
+	.sidebar {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		padding: 58px 0 0; /* Height of navbar */
+		box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+		width: 240px;
+		z-index: 600;
+	}
+
+	.sidebar-sticky {
+		position: relative;
+		top: 0;
+		height: calc(100vh - 48px);
+		padding-top: 0.5rem;
+		overflow-x: hidden;
+		overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+	}
+
+	#mainPage{
+		width:85%;
+		margin-left: 250px;
+	}
+	</style>

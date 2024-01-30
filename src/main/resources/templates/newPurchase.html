@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Sistema de estacionamento</title>
+	<link rel="stylesheet" type ="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+	<script th:src="@{/webjars/jquery/3.7.0/jquery.js}"></script>
+</head>
+<body>
+<input id ="user_id" name="user_id" type="hidden" th:value="${user_id}"/>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" th:fragment="header">
+	<div class="container-fluid">
+		<a class="navbar-brand" th:href="@{'/' + ${user_id}}">Sistema de estacionamento</a>
+		<a class="btn btn-outline-light" th:href="@{'/0'}">Logout</a>
+	</div>
+</nav>
+<br />
+<br />
+<br />
+<div class="container">
+	<div class="row col-md-8 offset-md-2">
+		<div class="card">
+			<div th:if="${param.success}">
+				<div class="alert alert-info">Você foi registrado com sucesso</div>
+			</div>
+			<div class="card-header">
+				<h2 class="text-center">Registro de estacionamento</h2>
+			</div>
+			<div class="card-body">
+				<form th:action="@{'/purchase/save/' + ${user_id}}" method="post" role="form" th:object="${purchase}">
+					<div class="form-group mb-3">
+						<label class="form-label">Placa do carro</label>
+						<select class="form-select"
+								id="car_id"
+								name="car_id"
+								th:field="*{car_id}"
+						>
+							<option value="0"></option>
+							<option th:each="car : ${carList}" th:value="${car.id}" th:text="${car.plate}"></option>
+						</select>
+						<p th:errors="*{car_id}" class="text-danger"
+						   th:if="${#fields.hasErrors('car_id')}">
+						</p>
+					</div>
+
+					<div class="form-group mb-3">
+						<label class="form-label">Método de pagamento</label>
+						<select class="form-select"
+								id="payment_method"
+								name="payment_method"
+								th:field="*{payment_method}"
+						>
+							<option value="NA"></option>
+							<option value="PIX">PIX</option>
+							<option value="CARTÃO DE CRÉDITO">CARTÃO DE CRÉDITO</option>
+							<option value="CARTÃO DE CRÉDITO">CARTÃO DE DÉBITO</option>
+						</select>
+						<p th:errors="*{payment_method}" class="text-danger"
+						   th:if="${#fields.hasErrors('payment_method')}">
+						</p>
+					</div>
+
+					<div class="form-group mb-3">
+						<label class="form-label">Tipo</label>
+						<select class="form-select"
+								id="tipo"
+								name="tipo"
+								th:field="*{type}"
+						>
+							<option value="N"></option>
+							<option value="S">TEMPO FIXO</option>
+							<option value="F">TEMPO FLEXÍVEL</option>
+						</select>
+						<p th:errors="*{type}" class="text-danger"
+						   th:if="${#fields.hasErrors('type')}">
+						</p>
+					</div>
+					<!--<div class="form-group mb-3">
+						<label class="form-label">Tempo total</label>
+						<input class="form-control"
+							   id="total_time"
+							   name="total_time"
+							   th:field="*{total_time}"
+							   type="number"
+						/>
+						<p th:errors="*{total_time}" class="text-danger"
+						   th:if="${#fields.hasErrors('total_time')}">
+						</p>
+					</div>
+					<div class="form-group mb-3">
+						<label class="form-label">Valor total</label>
+						<input class="form-control"
+							   id="total_amount"
+							   name="total_amount"
+							   th:field="*{total_amount}"
+							   type="number"
+						/>
+						<p th:errors="*{total_amount}" class="text-danger"
+						   th:if="${#fields.hasErrors('total_amount')}">
+						</p>
+					</div>-->
+
+					<div class="form-group mb-3">
+						<button class="btn btn-primary " type="submit">Salvar</button>
+						<a th:href="@{'/' + ${user_id}}" class="btn btn-danger" role="button" >Cancelar</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
