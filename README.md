@@ -1,35 +1,37 @@
 # Parking_lot
-Sistema de estacionamento - Java Spring boot / JPA
+Sistema de estacionamento - Java Spring boot / JPA<br />
 
-Essa aplicação possui interface gráfica para uma iteração.
+Essa aplicação possui interface gráfica para uma iteração.<br />
+<br />
+Foram criadas 4 tabelas para poder realizar este trabalho de gerenciamento de estacinamento<br />
+- Usuário<br />
+- Carro<br />
+- Vagas de estacionamento<br />
+- Ticket de estacionamento<br />
 
-Foram criadas 4 tabelas para poder realizar este trabalho de gerenciamento de estacinamento
--Usuário
--Carro
--Vagas de estacionamento
--Ticket de estacionamento
 
+E o intuito da aplicação é poder realizar as ações de:<br />
+<br />
+Usuário<br />
+- Criar usuário<br />
+- Logar na aplicação<br />
+- Alterar o usuário criado<br />
 
-E o intuito da aplicação é poder realizar as ações de:
-Usuário
--Criar usuário
--Logar na aplicação
--Alterar o usuário criado
+Carro <br />
+- Consultar os carros do usuário<br />
+- Criar carro de um usuário<br />
+- Alterar carro de um usuário<br />
+- Remover carro de um usuário<br />
 
-Carro
--Consultar os carros do usuário
--Criar carro de um usuário
--Alterar carro de um usuário
--Remover carro de um usuário
+Vagas de estacionamento<br />
+- Se tratando de um sistema de estacionamento de uma cidade as vagas seriam como entidades que seriam mantidas pela cidade, <br />
+ não se fazendo necessário o usuário da aplicação ter que gerenciá-las<br />
 
-Vagas de estacionamento
--Se tratando de um sistema de estacionamento de uma cidade as vagas seriam como entidades que seriam mantidas pela cidade, não se fazendo necessário o usuário da aplicação ter que gerenciá-las
-
-Ticket de estacionamento
-- Só pode realizar um estacionamento por vez
-- Criar ticket de estaciomento
-- Encerrar ticket de esacionmaneto (no momento da retirada do carro)
-- Consultar tickets de estacionamento de um usuário
+Ticket de estacionamento<br />
+- Só pode realizar um estacionamento por vez<br />
+- Criar ticket de estaciomento<br />
+- Encerrar ticket de esacionmaneto (no momento da retirada do carro)<br />
+- Consultar tickets de estacionamento de um usuário<br />
    
 
 
