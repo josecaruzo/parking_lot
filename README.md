@@ -1,4 +1,4 @@
-# parking_lot
+# Parking_lot
 Sistema de estacionamento - Java Spring boot / JPA
 
 Essa aplicação possui interface gráfica para uma iteração.
