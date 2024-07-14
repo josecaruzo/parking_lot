@@ -1,5 +1,5 @@
 # Parking_lot
-Sistema de estacionamento - Java Spring boot / JPA<br />
+2º Tech Challenge - POS TECH FIAP
 
 Essa aplicação possui interface gráfica para uma iteração.<br />
 <br />
